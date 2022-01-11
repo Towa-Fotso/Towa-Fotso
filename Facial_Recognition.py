@@ -55,8 +55,8 @@ import imutils
 
 
 # Get a reference to webcam #0 (the default one)
-camera_url = "http://192.168.43.1:8080/shot.jpg"
-#video_capture = cv2.VideoCapture(camera_url)
+#camera_url = "http://192.168.43.1:8080/shot.jpg"
+video_capture = cv2.VideoCapture(0)
 
 
 known_face_encodings = []
@@ -99,15 +99,15 @@ process_this_frame = True
 
 while True:
     # Grab a single frame of video
-    #ret, frame = video_capture.read()
+    ret, frame = video_capture.read()
     
-    img_resp = requests.get(camera_url)
+    #img_resp = requests.get(camera_url)
     
-    img_arr = np.array(bytearray(img_resp.content),dtype=np.uint8)
+    #img_arr = np.array(bytearray(img_resp.content),dtype=np.uint8)
     
-    frame = cv2.imdecode(img_arr, -1)
+    #frame = cv2.imdecode(img_arr, -1)
     
-    frame = imutils.resize(frame,width = 1000,height = 1800)
+    #frame = imutils.resize(frame,width = 1000,height = 1800)
 
     # Resize frame of video to 1/4 size for faster face recognition processing
     small_frame=cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
@@ -181,7 +181,7 @@ while True:
         
     # Display the resulting image
     cv2.imshow('Projet Intro a IOT et Big Data', frame)
-    #cv2.putText(frame, "Press Q to Exit", (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+    cv2.putText(frame, "Press Q to Exit", (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
         
     
     
@@ -191,5 +191,5 @@ while True:
         break
 
 # Release handle to the webcam
-#video_capture.release()
+video_capture.release()
 cv2.destroyAllWindows()
